@@ -1,5 +1,5 @@
 //
-//  BDWebViewController.h
+//  HFWebViewController.h
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/11.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BDWebViewController : UIViewController
+@interface HFWebViewController : UIViewController
 
 /**
  跳转指定URL

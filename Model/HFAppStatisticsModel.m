@@ -1,16 +1,16 @@
 //
-//  BDAppStatisticsModel.m
+//  HFAppStatisticsModel.m
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/10.
 //  Copyright © 2017年 Wang,Hanfeng. All rights reserved.
 //
 
-#import "BDAppStatisticsModel.h"
+#import "HFAppStatisticsModel.h"
 #import "MJExtension.h"
-#import "NSDictionary+BDTranformToString.h"
+#import "NSDictionary+HFTranformToString.h"
 
-@implementation BDAppStatisticsModel
+@implementation HFAppStatisticsModel
 
 - (instancetype)init {
     self = [super init];
@@ -25,26 +25,26 @@
     return dictionary;
 }
 
-+ (BDAppStatisticsModel *)readLocalAppStatisticsModel {
-    NSString *infoPath = [NSString stringWithFormat:@"%lu",(unsigned long)[BDAppStatisticsIdentifier hash]];
++ (HFAppStatisticsModel *)readLocalAppStatisticsModel {
+    NSString *infoPath = [NSString stringWithFormat:@"%lu",(unsigned long)[HFAppStatisticsIdentifier hash]];
     infoPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:infoPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:infoPath]) {
-        BDAppStatisticsModel *appStatisticsModel = [BDAppStatisticsModel mj_objectWithFile:infoPath];
+        HFAppStatisticsModel *appStatisticsModel = [HFAppStatisticsModel mj_objectWithFile:infoPath];
         return appStatisticsModel;
     } else {
-        return [[BDAppStatisticsModel alloc] init];
+        return [[HFAppStatisticsModel alloc] init];
     }
 }
 
-+ (void)writeLocalAppStatisticsModel:(BDAppStatisticsModel *)appStatisticsModel {
-    NSString *infoPath = [NSString stringWithFormat:@"%lu",(unsigned long)[BDAppStatisticsIdentifier hash]];
++ (void)writeLocalAppStatisticsModel:(HFAppStatisticsModel *)appStatisticsModel {
+    NSString *infoPath = [NSString stringWithFormat:@"%lu",(unsigned long)[HFAppStatisticsIdentifier hash]];
     infoPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:infoPath];
     [[appStatisticsModel convertDictionary] writeToFile:infoPath atomically:YES];
-    NSLog(@"%@",[[appStatisticsModel convertDictionary] bd_tranformToNSString]);
+    NSLog(@"%@",[[appStatisticsModel convertDictionary] HF_tranformToNSString]);
 }
 
 + (void)clearLocalAppStatisticsModel {
-     NSString *infoPath = [NSString stringWithFormat:@"%lu",(unsigned long)[BDAppStatisticsIdentifier hash]];
+     NSString *infoPath = [NSString stringWithFormat:@"%lu",(unsigned long)[HFAppStatisticsIdentifier hash]];
     [[NSFileManager defaultManager] removeItemAtPath:infoPath error:nil];
 }
 

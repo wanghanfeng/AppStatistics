@@ -1,5 +1,5 @@
 //
-//  BDAlertController.h
+//  HFAlertController.h
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/11.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Utilities.h"
 
-@interface BDAlertController : UIAlertController
+@interface HFAlertController : UIAlertController
 
 //提示框接口
 

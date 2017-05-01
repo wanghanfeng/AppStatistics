@@ -1,5 +1,5 @@
 //
-//  BDAppStatistics.h
+//  HFAppStatistics.h
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/10.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "BDAlertController.h"
+#import "HFAlertController.h"
 
-@interface BDAppStatistics : NSObject
+@interface HFAppStatistics : NSObject
 
 /**
  应用在App Store的appID

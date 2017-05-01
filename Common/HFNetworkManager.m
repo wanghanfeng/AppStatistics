@@ -1,27 +1,27 @@
 //
-//  BDNetworkManager.m
+//  HFNetworkManager.m
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/11.
 //  Copyright © 2017年 Wang,Hanfeng. All rights reserved.
 //
 
-#import "BDNetworkManager.h"
+#import "HFNetworkManager.h"
 #import "AFNetworking.h"
 
-@interface BDNetworkManager()
+@interface HFNetworkManager()
 
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 @end
 
-@implementation BDNetworkManager
+@implementation HFNetworkManager
 
 + (instancetype)sharedInstance {
-    static BDNetworkManager *manager = nil;
+    static HFNetworkManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[BDNetworkManager alloc] init];
+        manager = [[HFNetworkManager alloc] init];
     });
     return manager;
 }

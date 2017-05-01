@@ -1,5 +1,5 @@
 //
-//  BDAppStatisticsModel.h
+//  HFAppStatisticsModel.h
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/10.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString* const BDAppStatisticsIdentifier = @"BDAppStatisticsIdentifier";
+static NSString* const HFAppStatisticsIdentifier = @"HFAppStatisticsIdentifier";
 
-@interface BDAppStatisticsModel : NSObject
+@interface HFAppStatisticsModel : NSObject
 
 /**
  描述应用当前已启动次数
@@ -49,18 +49,18 @@ static NSString* const BDAppStatisticsIdentifier = @"BDAppStatisticsIdentifier";
 
 
 /**
- 单例类方法，获取应用启动统计的数据模型单例对象，该单例对象定义BDAppStatistics对象所需使用的数据对象
+ 单例类方法，获取应用启动统计的数据模型单例对象，该单例对象定义HFAppStatistics对象所需使用的数据对象
 
  @return 应用启动统计的数据模型单例对象
  */
-+ (BDAppStatisticsModel *)readLocalAppStatisticsModel;
++ (HFAppStatisticsModel *)readLocalAppStatisticsModel;
 
 /**
  类方法，当需要将数据模型对象数据持久化时调起，将数据模型对象写入文件
 
  @param appStatisticsModel 数据模型对象
  */
-+ (void)writeLocalAppStatisticsModel:(BDAppStatisticsModel *)appStatisticsModel;
++ (void)writeLocalAppStatisticsModel:(HFAppStatisticsModel *)appStatisticsModel;
 
 /**
  类方法，清楚当前已经数据持久化的对象模型

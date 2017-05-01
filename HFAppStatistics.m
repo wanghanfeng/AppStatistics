@@ -1,15 +1,15 @@
 //
-//  BDAppStatistics.m
+//  HFAppStatistics.m
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/10.
 //  Copyright © 2017年 Wang,Hanfeng. All rights reserved.
 //
 
-#import "BDAppStatistics.h"
-#import "BDAppStatisticsModel.h"
-#import "BDWebViewController.h"
-#import "BDNetworkManager.h"
+#import "HFAppStatistics.h"
+#import "HFAppStatisticsModel.h"
+#import "HFWebViewController.h"
+#import "HFNetworkManager.h"
 #import "MJExtension.h"
 #import "Utilities.h"
 
@@ -17,17 +17,17 @@ static const NSString *gradeCommand = @"gradeCommand";
 static const NSString *openUrlCommand = @"openUrlCommand";
 static const NSString *clearCommand = @"clearCommand";
 
-@interface BDAppStatistics()
+@interface HFAppStatistics()
 @property (nonatomic, strong)UINavigationController *navigationController;
 @end
 
-@implementation BDAppStatistics
+@implementation HFAppStatistics
 
 + (instancetype)sharedInstance {
-    static BDAppStatistics *appStatistics = nil;
+    static HFAppStatistics *appStatistics = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        appStatistics = [[BDAppStatistics alloc] init];
+        appStatistics = [[HFAppStatistics alloc] init];
     });
     return appStatistics;
 }
@@ -45,7 +45,7 @@ static const NSString *clearCommand = @"clearCommand";
     NSString *appVersion = [appInfoDic objectForKey:@"CFBundleShortVersionString"];
     
     PREP_BLOCK
-    [[BDNetworkManager sharedInstance] getRequestWithURL:urlString responseType:ResponseTypeJSON completionBlock:^(BOOL success, id result) {
+    [[HFNetworkManager sharedInstance] getRequestWithURL:urlString responseType:ResponseTypeJSON completionBlock:^(BOOL success, id result) {
         BEGIN_BLOCK
         if (success) {
             NSError *error;
@@ -53,7 +53,7 @@ static const NSString *clearCommand = @"clearCommand";
             if (error) {
                 NSLog(@"%@",error);
             } else {
-                BDAppStatisticsModel *appStatisticsModel = [BDAppStatisticsModel readLocalAppStatisticsModel];
+                HFAppStatisticsModel *appStatisticsModel = [HFAppStatisticsModel readLocalAppStatisticsModel];
                 if (appStatisticsModel.usedCount == nil) {
                     //初次使用
                     appStatisticsModel.usedCount = @"1";
@@ -81,17 +81,17 @@ static const NSString *clearCommand = @"clearCommand";
                 //提示框
                 if ([appStatisticsModel.usedCount integerValue] >= [appStatisticsModel.maxCount integerValue] && !appStatisticsModel.neverShowMessageThisVersion) {
                     UIViewController *rootVC = [[UIApplication sharedApplication] keyWindow].rootViewController;
-                    [BDAlertController showInViewController:rootVC title:@"提示" message:appStatisticsModel.message okHandlerBlock:^{
+                    [HFAlertController showInViewController:rootVC title:@"提示" message:appStatisticsModel.message okHandlerBlock:^{
                         [self okBtnPressed];
                     } cancelHandlerBlock:^{
                         [self cancelBtnPressed];
                     }];
                 }
-                [BDAppStatisticsModel writeLocalAppStatisticsModel:appStatisticsModel];
+                [HFAppStatisticsModel writeLocalAppStatisticsModel:appStatisticsModel];
             }
         } else {
             //网络请求失败 读取本地缓存
-            BDAppStatisticsModel *appStatisticsModel = [BDAppStatisticsModel readLocalAppStatisticsModel];
+            HFAppStatisticsModel *appStatisticsModel = [HFAppStatisticsModel readLocalAppStatisticsModel];
             if (appStatisticsModel) {
                 NSInteger usedCount = [appStatisticsModel.usedCount integerValue] + 1;
                 appStatisticsModel.usedCount = [NSString stringWithFormat:@"%ld",(long)usedCount];
@@ -102,13 +102,13 @@ static const NSString *clearCommand = @"clearCommand";
                 }
                 if ([appStatisticsModel.usedCount integerValue] >= [appStatisticsModel.maxCount integerValue] && !appStatisticsModel.neverShowMessageThisVersion) {
                     UIViewController *rootVC = [[UIApplication sharedApplication] keyWindow].rootViewController;
-                    [BDAlertController showInViewController:rootVC title:@"提示" message:appStatisticsModel.message okHandlerBlock:^{
+                    [HFAlertController showInViewController:rootVC title:@"提示" message:appStatisticsModel.message okHandlerBlock:^{
                         [self okBtnPressed];
                     } cancelHandlerBlock:^{
                         [self cancelBtnPressed];
                     }];
                 }
-                [BDAppStatisticsModel writeLocalAppStatisticsModel:appStatisticsModel];
+                [HFAppStatisticsModel writeLocalAppStatisticsModel:appStatisticsModel];
             }
         }
         END_BLOCK
@@ -141,26 +141,26 @@ static const NSString *clearCommand = @"clearCommand";
 }
 
 - (void)runOpenUrlCommand {
-    BDAppStatisticsModel *appStatisticsModel = [BDAppStatisticsModel readLocalAppStatisticsModel];
-    BDWebViewController *webVC = [[BDWebViewController alloc] init];
+    HFAppStatisticsModel *appStatisticsModel = [HFAppStatisticsModel readLocalAppStatisticsModel];
+    HFWebViewController *webVC = [[HFWebViewController alloc] init];
     [self.navigationController pushViewController:webVC animated:YES];
     [webVC openURL:appStatisticsModel.url];
     NSLog(@"runOpenUrlCommand");
 }
 
 - (void)runClearCommand {
-    [BDAppStatisticsModel clearLocalAppStatisticsModel];
+    [HFAppStatisticsModel clearLocalAppStatisticsModel];
     NSLog(@"runClearCommand");
 }
 
 - (void)cancelBtnPressed {
-    BDAppStatisticsModel *appStatisticsModel = [BDAppStatisticsModel readLocalAppStatisticsModel];
+    HFAppStatisticsModel *appStatisticsModel = [HFAppStatisticsModel readLocalAppStatisticsModel];
     appStatisticsModel.neverShowMessageThisVersion = YES;
-    [BDAppStatisticsModel writeLocalAppStatisticsModel:appStatisticsModel];
+    [HFAppStatisticsModel writeLocalAppStatisticsModel:appStatisticsModel];
 }
 
 - (void)okBtnPressed {
-    BDAppStatisticsModel *appStatisticsModel = [BDAppStatisticsModel readLocalAppStatisticsModel];
+    HFAppStatisticsModel *appStatisticsModel = [HFAppStatisticsModel readLocalAppStatisticsModel];
     [self handleCommand:appStatisticsModel.command];
 }
 

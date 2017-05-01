@@ -1,5 +1,5 @@
 //
-//  BDNetworkManager.h
+//  HFNetworkManager.h
 //  GoodCoder
 //
 //  Created by Wang,Hanfeng on 17/4/11.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDNetworkManager : NSObject
+@interface HFNetworkManager : NSObject
 
 
 /**
